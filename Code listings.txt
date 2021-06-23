@@ -1,0 +1,103 @@
+  FALSE TRUE
+  0   111  130
+  1   122  117
+Measure 	Value 	Derivations
+Sensitivity 	0.4895 	TPR = TP / (TP + FN)
+Specificity 	0.4606 	SPC = TN / (FP + TN)
+Precision 	0.4737 	PPV = TP / (TP + FP)
+Negative Predictive Value 	0.4764 	NPV = TN / (TN + FN)
+False Positive Rate 	0.5394 	FPR = FP / (FP + TN)
+False Discovery Rate 	0.5263 	FDR = FP / (FP + TP)
+False Negative Rate 	0.5105 	FNR = FN / (FN + TP)
+Accuracy 	0.4750 	ACC = (TP + TN) / (P + N)
+F1 Score 	0.4815 	F1 = 2TP / (2TP + FP + FN) 
+2
+ FALSE TRUE
+  0   199   42
+  1    57  182
+1
+PredictSRM2 = predict(StandardRModel2, newdata=test2, type="response")
+StandardRModel = glm(deceptive ~ ., data=train, family="binomial")
+
+dncorpus = VCorpus(VectorSource(dn$text))
+dncorpus = tm_map(dncorpus, content_transformer(tolower))
+dncorpus = tm_map(dncorpus, PlainTextDocument)
+dncorpus = tm_map(dncorpus, removeWords, stopwords("en"))
+dncorpus = tm_map(dncorpus, removeWords, c("hotel", "chicago", "hotels"))
+dncorpus = tm_map(dncorpus, removePunctuation)
+dncorpus = tm_map(dncorpus, stemDocument)
+wordcloud(dncorpus,max.words=150,random.order=FALSE, rot.per=0.15,scale=c(3.5,0.25), colors=brewer.pal(8,"Dark2"))
+dncorpus = VCorpus(VectorSource(dn$text))
+dncorpus = tm_map(dncorpus, content_transformer(tolower))
+dncorpus = tm_map(dncorpus, PlainTextDocument)
+dncorpus = tm_map(dncorpus, removeWords, stopwords("en"))
+dncorpus = tm_map(dncorpus, removeWords, c("hotel", "chicago", "hotels"))
+dncorpus = tm_map(dncorpus, removePunctuation)
+dncorpus = tm_map(dncorpus, stemDocument)
+wordcloud(dncorpus,max.words=150,random.order=FALSE, rot.per=0.15,scale=c(3.5,0.25), colors=brewer.pal(8,"Dark2"))
+
+
+> writeCorpus(corpus, path = "testCorpus",filenames = paste(seq_along(corpus), ".txt", sep = ""))
+dcorpus <- as.data.frame(as.matrix(dosparse))
+sort(colSums(dosparse))
+dosparse = as.data.frame(as.matrix(spdtm))
+StandardRModel = glm(deceptive ~ ., data=train, family="binomial")
+StandardRModel = glm(deceptive ~ ., data=train, family="binomial")
+PredictSRM = predict(StandardRModel, newdata=test, type="response")
+table(test$deceptive, PredictSVM > 0.5)
+testCorpus <- as.data.frame(as.matrix(dtm))
+colnames(testCorpus) <- make.names(colnames(testCorpus))
+testCorpus$deceptive <- deceptive.opinion$deceptive
+train=testCorpus[train_ind,] //Creating a dataframe to hold the training set
+test=testCorpus[-train_ind,] //Creating a dataframe to hold the test set
+
+tdmCorpus <- as.data.frame(as.matrix(tdm))
+dim(tdmCorpus)
+tdmCorpus[ 100:105, 14:16]
+term_frequency <- rowSums(coffee_m)
+term_frequency <- rowSums(tdmCorpus)
+term_frequency <- sort(term_frequency, decreasing = T)
+term_frequency[1:10]
+barplot(term_frequency[1:10], col = "tan", las = 2)
+
+if (file.exists("english-ud-2.0-170801.udpipe"))
+ud_model <- udpipe_load_model(file = "english-ud-2.0-170801.udpipe") else {
+ud_model <- udpipe_download_model(language = "english")
+ud_model <- udpipe_load_model(ud_model$file_model)
+}
+
+stats <- subset(tx, upos %in% c("ADJ"))
+stats <- txt_freq(stats$token)
+stats$key <- factor(stats$key, levels = rev(stats$key))
+barchart(key ~ freq, data = head(stats, 20), col = "cadetblue",
+main = "Most occurring Adjectives in truthful", xlab = "Freq")
+
+BigramTokenizer <-function(x)unlist(lapply(ngrams(words(x), 2), paste, collapse = " "), use.names = FALSE)
+
+xdtmstopwordrm <- tm_map(xdtm,removeWords,stopwords("en"))
+dtf <- subset(x, upos %in% c("NOUN","VERB","ADJ","PUNCT"))
+View(dtf)
+xdtm <- document_term_frequencies(dtf[, c("doc_id", "token")])
+View(xdtm)
+xdtm <- document_term_matrix(xdtm)
+xdtm <- dtm_remove_sparseterms(xdtm, sparsity = 0.90)
+PoScorpus <- as.data.frame(as.matrix(xdtm))
+View(PoScorpus)
+PoScorpus <- PoScorpus[ -c(1,2,4,5,6,7) ]
+View(PoScorpus)
+sort(colSums(PoScorpus))
+PoScorpus$deceptive <- deceptive.opinion$deceptive
+View(PoScorpus)
+train2=PoScorpus[train_ind,]
+test2=PoScorpus[-train_ind,]
+StandardRModel2 = glm(deceptive ~ ., data=train2, family="binomial")
+PredictSRM2 = predict(StandardRModel2, newdata=test2, type="response")
+summary(StandardRModel2)
+table(test2$deceptive, PredictSRM2 > 0.5)
+
+x <- udpipe_annotate(ud_model, deceptive.opinion$text)
+x <- as.data.frame(x)
+dx <- udpipe_annotate(ud_model, deceptiveRev$text)
+dx <- as.data.frame(dx)
+tx <- udpipe_annotate(ud_model, TruthfulRev$text)
+tx <- as.data.frame(tx)
